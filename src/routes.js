@@ -1,41 +1,29 @@
-const {
-  addBookHandler,
-  displayAllBooksHandler,
-  showBookDetailsHandler,
-  changeBookDataHandler,
-  deleteBookHandler,
-} = require('./handler');
-
+const { addBook, getAllBooks, getBookById, editBookById, deleteBookById } = require('./handler.js');
 const routes = [
   {
-    // Criterion 1: API Can Save Books
     method: 'POST',
     path: '/books',
-    handler: addBookHandler,
+    handler: addBook,
   },
   {
-    // Criterion 2: API Can Display Entire Books
     method: 'GET',
     path: '/books',
-    handler: displayAllBooksHandler,
+    handler: getAllBooks,
   },
   {
-    // Criterion 3: API Can Show Book Details
     method: 'GET',
-    path: '/books/{bookId}',
-    handler: showBookDetailsHandler,
+    path: '/books/{id}',
+    handler: getBookById,
   },
   {
-    // Criterion 4: API Can Change Book Data
     method: 'PUT',
-    path: '/books/{bookId}',
-    handler: changeBookDataHandler,
+    path: '/books/{id}',
+    handler: editBookById,
   },
   {
-    // Criterion 5: API Can Delete Books
     method: 'DELETE',
-    path: '/books/{bookId}',
-    handler: deleteBookHandler,
+    path: '/books/{id}',
+    handler: deleteBookById,
   },
 ];
 
