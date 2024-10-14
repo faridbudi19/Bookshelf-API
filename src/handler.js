@@ -2,12 +2,12 @@ const { nanoid } = require('nanoid');
 const books = require('./books.js');
 
 const addBook = (request, h) => {
-  const { nama, tahun, penulis, summary, penerbit, pageCount, readPage, reading } = request.payload;
+  const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload;
 
-  if (nama === undefined) {
+  if (name === undefined) {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal menambahkan buku. Mohon isi nama buku'
+      message: 'Gagal menambahkan buku. Mohon isi name buku'
     });
 
     response.code(400);
@@ -29,7 +29,7 @@ const addBook = (request, h) => {
   const insertedAt = new Date().toISOString();
   const updatedAt = insertedAt;
 
-  const newBook = { id, nama, tahun, penulis, summary, penerbit, pageCount, readPage, finished, reading, insertedAt, updatedAt };
+  const newBook = { id, name, year, author, summary, publisher, pageCount, readPage, finished, reading, insertedAt, updatedAt };
 
   books.push(newBook);
 
@@ -50,18 +50,18 @@ const addBook = (request, h) => {
 };
 
 const getAllBooks = (request, h) => {
-  const { nama, reading, finished } = request.query;
+  const { name, reading, finished } = request.query;
 
-  if (nama !== undefined) {
-    const book = books.filter((book) => book.nama.toLowerCase().includes(nama.toLowerCase()));
+  if (name !== undefined) {
+    const book = books.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()));
 
     const response = h.response({
       status: 'success',
       data: {
         books: book.map((book) => ({
           id: book.id,
-          nama: book.nama,
-          penerbit: book.penerbit,
+          name: book.name,
+          publisher: book.publisher,
         }),
         ),
       },
@@ -79,8 +79,8 @@ const getAllBooks = (request, h) => {
       data: {
         books: book.map((book) => ({
           id: book.id,
-          nama: book.nama,
-          penerbit: book.penerbit,
+          name: book.name,
+          publisher: book.publisher,
         }),
         ),
       },
@@ -98,8 +98,8 @@ const getAllBooks = (request, h) => {
       data: {
         books: book.map((book) => ({
           id: book.id,
-          nama: book.nama,
-          penerbit: book.penerbit,
+          name: book.name,
+          publisher: book.publisher,
         }),
         ),
       },
@@ -114,8 +114,8 @@ const getAllBooks = (request, h) => {
     data: {
       books: books.map((book) => ({
         id: book.id,
-        nama: book.nama,
-        penerbit: book.penerbit,
+        name: book.name,
+        publisher: book.publisher,
       })),
     },
   });
@@ -148,12 +148,12 @@ const getBookById = (request, h) => {
 const editBookById = (request, h) => {
   const { id } = request.params;
 
-  const { nama, tahun, penulis, summary, penerbit, pageCount, readPage, reading } = request.payload;
+  const { name, year, author, summary, publisher, pageCount, readPage, reading } = request.payload;
 
-  if (nama === undefined) {
+  if (name === undefined) {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Mohon isi nama buku',
+      message: 'Gagal memperbarui buku. Mohon isi name buku',
     });
 
     response.code(400);
@@ -177,11 +177,11 @@ const editBookById = (request, h) => {
   if (index !== -1) {
     books[index] = {
       ...books[index],
-      nama,
-      tahun,
-      penulis,
+      name,
+      year,
+      author,
       summary,
-      penerbit,
+      publisher,
       pageCount,
       readPage,
       reading,
